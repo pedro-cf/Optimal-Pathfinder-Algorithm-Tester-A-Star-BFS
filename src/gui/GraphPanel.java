@@ -87,21 +87,25 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			UIvertex v1 = e.getV1();
 			UIvertex v2 = e.getV2();
 			
-			g2.setColor(Color.black);
-			g2.setStroke(new BasicStroke(4.0f));
+			if (e.isHighlighted()) {
+				g2.setColor(Color.red);
+				g2.setStroke(new BasicStroke(12.0f));
+			} else {
+				g2.setColor(Color.black);
+				g2.setStroke(new BasicStroke(4.0f));
+			}
+			
+			
 
 			int i = v1.getX() + edge_offset;
 			int j = v1.getY() + edge_offset;	
 			int k = v2.getX() + edge_offset;
 			int l = v2.getY() + edge_offset;
 			
+			
 			g2.drawLine(i, j, k, l);
 
-			if (e.isHighlighted()) {
-				g2.setColor(Color.red);
-			} else {
-				g2.setColor(Color.white);
-			}
+			g2.setColor(e.getColor());
 			
 			g2.setStroke(new BasicStroke(3.0f));
 			g2.drawLine(i, j, k, l);
@@ -110,10 +114,10 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			int mx = (i + k)/2;
 		    int my = (j + l)/2;
 		    
-		    
-		    g2.setColor(Color.black);
+		  
+			g2.setColor(Color.black);
 		    g2.setFont(f);
-		    g2.drawString(( (Integer) e.getEdge().getWeight()).toString(), mx, my);
+		    g2.drawString(( (Integer) e.getEdge().getWeight()).toString(), mx+5, my);
 			
 		}
 
@@ -138,6 +142,8 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			//g2.drawString(v.getVertex().getValue().getName(), x
 			//		+ vertex_offset_x, y + vertex_offset_y);
 		}
+		
+		
 
 	}
 

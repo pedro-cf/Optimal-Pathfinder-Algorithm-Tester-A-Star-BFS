@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -53,8 +54,8 @@ public class Graph<T> {
 		vertexes.add(v);
 	}
 	
-	public boolean addEdge(Vertex<T> v1, Vertex<T> v2, int weight) {
-		Edge<T> edge = new Edge<T>(v1, v2, weight, edgeCount++);
+	public boolean addEdge(Vertex<T> v1, Vertex<T> v2, int weight, Color type) {
+		Edge<T> edge = new Edge<T>(v1, v2, weight, edgeCount++, type);
 		if (!edges.contains(edge)) {
 			edges.add(edge);
 			return true;
@@ -63,8 +64,8 @@ public class Graph<T> {
 		return false;
 	}
 
-	public boolean addEdge(int id1, int id2, int weight) {
-		Edge<T> edge = new Edge<T>(vertexes.get(id1), vertexes.get(id2), weight, edgeCount++);
+	public boolean addEdge(int id1, int id2, int weight, Color type) {
+		Edge<T> edge = new Edge<T>(vertexes.get(id1), vertexes.get(id2), weight, edgeCount++, type);
 		
 		if (!edges.contains(edge)) {
 			edges.add(edge);

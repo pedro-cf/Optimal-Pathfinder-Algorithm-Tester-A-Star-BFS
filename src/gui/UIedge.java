@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+
 import logic.Edge;
 import logic.Location;
 
@@ -8,6 +10,10 @@ public class UIedge {
 	private UIvertex v1, v2;
 	private Edge<Location> edge;
 	private boolean highlighted = false;
+	
+	public Color getColor() {
+		return edge.getType();
+	}
 	
 	public boolean isHighlighted() {
 		return highlighted;

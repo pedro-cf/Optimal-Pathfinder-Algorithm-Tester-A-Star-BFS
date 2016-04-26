@@ -28,7 +28,7 @@ import java.awt.Color;
 
 public class Gui {
 	
-	public final static int scrw = 880;
+	public final static int scrw = 1080;
 	public final static int scrh = 670;
 	
 
@@ -97,7 +97,7 @@ public class Gui {
 		
 		
 		graphPanel = new GraphPanel();
-		graphPanel.setBounds(10, 78, scrw-10, scrh-64);
+		graphPanel.setBounds(10, 78, scrw-210, scrh-64);
 		frame.getContentPane().add(graphPanel);
 		
 		graphPanel.setFocusTraversalKeysEnabled(false);
@@ -180,9 +180,9 @@ public class Gui {
 			for (k=0; k < 8; k++) {
 				int n = i*8 + k;
 				if (i != 4)
-					graph.addEdge( n, n+8, random(5,30));
+					graph.addEdge( n, n+8, random(5,30), Color.cyan);
 				if (k != 7)
-					graph.addEdge( n, n+1, random(5,30));
+					graph.addEdge( n, n+1, random(5,30), Color.orange);
 			}
 		
 	}

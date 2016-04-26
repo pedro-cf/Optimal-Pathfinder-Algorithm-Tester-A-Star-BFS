@@ -1,24 +1,34 @@
 package logic;
 
+import java.awt.Color;
+
 public class Edge<T> {
 	
 	private int id;
 	private Vertex<T> v1, v2;
 	private int weight;
-	
-	
-	public Edge(Vertex<T> v1, Vertex<T> v2, int weight, int id) {
+	private Color type;
+
+	public Edge(Vertex<T> v1, Vertex<T> v2, int weight, int id, Color type) {
 		this.v1 = v1;
 		this.v2 = v2;
 		this.weight = weight;
 		this.id = id;
+		this.type = type;
 		
 		v1.addEdge(this);
 		v2.addEdge(this);
 		v1.addNeighbor(v2);
 		v2.addNeighbor(v1);
 	}
+	
+	public Color getType() {
+		return type;
+	}
 
+	public void setType(Color type) {
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;
