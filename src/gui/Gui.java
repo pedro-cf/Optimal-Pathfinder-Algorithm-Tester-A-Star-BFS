@@ -92,7 +92,7 @@ public class Gui {
 		});
 		highlightButton.setFont(new Font("Tahoma", Font.BOLD, 18));
 		highlightButton.setFocusable(false);
-		highlightButton.setBounds(582, 14, 171, 30);
+		highlightButton.setBounds(554, 14, 171, 30);
 		frame.getContentPane().add(highlightButton);
 		
 		
@@ -136,6 +136,21 @@ public class Gui {
 		label.setFont(new Font("Tahoma", Font.BOLD, 30));
 		label.setBounds(816, 9, 38, 35);
 		frame.getContentPane().add(label);
+		
+		JButton btnR = new JButton("R");
+		btnR.setToolTipText("Remake Graph");
+		btnR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				graph = null;
+				initializeGraph();
+				graphPanel.initialize();
+				graphPanel.repaint();
+			}
+		});
+		btnR.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnR.setFocusable(false);
+		btnR.setBounds(735, 14, 56, 30);
+		frame.getContentPane().add(btnR);
 		graphPanel.requestFocus();
 		
 	}
@@ -145,6 +160,7 @@ public class Gui {
 	}
 	
 	private static void initializeGraph() {
+		graph.reset();
 		graph = new Graph<Location>();
 		
 		//start = graph.addVertex(new Location("V1"));

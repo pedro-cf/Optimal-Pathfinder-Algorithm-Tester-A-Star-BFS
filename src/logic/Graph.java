@@ -22,6 +22,11 @@ public class Graph<T> {
 		this.edgeCount = 0;
 	}
 	
+	public static void reset() {
+		logic.Vertex.x_inc = 50;
+		logic.Vertex.y_inc = 50;
+	}
+	
 	private void removeVertex(Vertex<T> v) {
 		for(Edge<T> e : v.getEdges()) {
 			this.edges.remove(e);

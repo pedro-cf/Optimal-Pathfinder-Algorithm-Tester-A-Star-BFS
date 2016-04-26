@@ -9,8 +9,8 @@ public class Vertex<T> implements Comparable<Vertex<T>>{
 	private T obj;
 	private List<Edge<T>> edges = new ArrayList<Edge<T>>();
 	private List<Vertex<T>> neighbors = new ArrayList<Vertex<T>>();
-	private static int x_inc = 50;
-	private static int y_inc = 50;
+	protected static int x_inc = 50;
+	protected static int y_inc = 50;
 	private int x;
 	private int y;
 	private final static int yspacing = 100;

@@ -47,6 +47,15 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
+		initialize();
+
+	}
+
+	public void initialize() {
+		startNodeID = -1;
+		goalNodeID = -1;
+		ui_vertexes.clear();
+		ui_edges.clear();
 		vertexes = graph.getVertexes();
 		edges = graph.getEdges();
 
@@ -63,7 +72,6 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			}
 			ui_edges.add(new UIedge(uivs.get(0), uivs.get(1), e));
 		}
-
 	}
 
 	@Override
