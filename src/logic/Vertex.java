@@ -13,10 +13,10 @@ public class Vertex<T> implements Comparable<Vertex<T>>{
 	protected static int y_inc = 50;
 	private int x;
 	private int y;
-	private final static int yspacing = 100;
-	private final static int xspacing = 100;
+	private final static int yspacing = 75;
+	private final static int xspacing = 75;
 	private final static int x_initial_spacing = 50;
-	private final static int xlimit = 800;
+	private final static int xlimit = 1050;
 	
 	public Vertex(T obj) {
 		this.obj = obj;

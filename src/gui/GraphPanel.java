@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -34,7 +35,7 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 	protected final static int edge_offset = diameter / 2;
 	protected final static int vertex_offset_x = diameter / 3;
 	protected final static int vertex_offset_y = diameter / 2;
-	private final Font f = new Font("Dialog", Font.PLAIN, diameter / 2);
+	private final Font f = new Font("Dialog", Font.PLAIN, diameter / 3);
 	private final Font f2 = new Font("Dialog", Font.BOLD, diameter / 2);
 
 	private List<Vertex<Location>> vertexes;
@@ -49,6 +50,16 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		
 		initialize();
 
+	}
+	
+	public boolean edgeAlreadyExists(UIedge edge) {
+		
+		for (UIedge e : ui_edges) {
+			if (edge.getV1().getId() == e.getV1().getId() && edge.getV2().getId() == e.getV2().getId()) return true;
+			if (edge.getV1().getId() == e.getV2().getId() && edge.getV2().getId() == e.getV1().getId()) return true;
+		}
+		
+		return false;
 	}
 
 	public void initialize() {
@@ -73,52 +84,90 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			ui_edges.add(new UIedge(uivs.get(0), uivs.get(1), e));
 		}
 	}
+	
+	public void drawDashedLine(Graphics g, int x1, int y1, int x2, int y2){
+
+        //creates a copy of the Graphics instance
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        //set the stroke of the copy, not the original 
+        Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        g2d.setStroke(dashed);
+        g2d.drawLine(x1, y1, x2, y2);
+
+        //gets rid of the copy
+        g2d.dispose();
+	}
+	
+
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-
+		Graphics2D g3 = (Graphics2D) g;
+		
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		
+		g3.setStroke(new BasicStroke(4.0f));
+		g2.setColor(Color.black);
+		g3.drawLine(1090, 100, 1200, 100);
+		g3.drawLine(1090, 150, 1200, 150);
+		g3.drawLine(1090, 200, 1200, 200);
+		g3.drawLine(1090, 250, 1200, 250);
+		
+		
+		g3.setStroke(new BasicStroke(3.0f));
+		g3.setColor(Color.blue);
+		g3.drawLine(1090, 100, 1200, 100);
+		
+		g3.setColor(Color.green);
+		g3.drawLine(1090, 150, 1200, 150);
+		
+		g3.setColor(Color.yellow);
+		g3.drawLine(1090, 200, 1200, 200);
+		
+		g3.setColor(Color.magenta);
+		g3.drawLine(1090, 250, 1200, 250);
+		
 
 		for (UIedge e : ui_edges) {
 			UIvertex v1 = e.getV1();
 			UIvertex v2 = e.getV2();
 			
-			if (e.isHighlighted()) {
-				g2.setColor(Color.red);
-				g2.setStroke(new BasicStroke(12.0f));
-			} else {
-				g2.setColor(Color.black);
-				g2.setStroke(new BasicStroke(4.0f));
-			}
+			g2.setColor(Color.black);
+			g2.setStroke(new BasicStroke(4.0f));
 			
-			
+			g2.getColor();
 
 			int i = v1.getX() + edge_offset;
 			int j = v1.getY() + edge_offset;	
 			int k = v2.getX() + edge_offset;
 			int l = v2.getY() + edge_offset;
 			
-			
 			g2.drawLine(i, j, k, l);
-
-			g2.setColor(e.getColor());
 			
 			g2.setStroke(new BasicStroke(3.0f));
+			g2.setColor(e.getColor());
 			g2.drawLine(i, j, k, l);
-			
+			if (e.isHighlighted()) {
+				g2.setColor(Color.red);
+				drawDashedLine(g2, i, j, k, l);
+			}
 			
 			int mx = (i + k)/2;
 		    int my = (j + l)/2;
+		    if (e.isHorizontal())
+		    	my -=5;
+		    else
+		    	mx -=15;
 		    
-		  
-			g2.setColor(Color.black);
+		    g2.setColor(Color.black);
 		    g2.setFont(f);
-		    g2.drawString(( (Integer) e.getEdge().getWeight()).toString(), mx+5, my);
-			
+		    g2.drawString(( (Integer) e.getEdge().getWeight()).toString(), mx, my);
 		}
 
 		g2.setStroke(new BasicStroke(1.0f));
@@ -142,8 +191,6 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			//g2.drawString(v.getVertex().getValue().getName(), x
 			//		+ vertex_offset_x, y + vertex_offset_y);
 		}
-		
-		
 
 	}
 
@@ -187,6 +234,8 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 	public void mousePressed(MouseEvent e) {
 		int x = (int) e.getX(),
 		y = (int) e.getY();
+		
+		//System.out.println(x + " - " + y);
 		
 		for (UIvertex v : ui_vertexes) {
 			if (v.onTop(x, y)) {

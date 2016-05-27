@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.HashMap;
+import java.util.Vector;
 
 import logic.Location;
 import logic.Vertex;
@@ -22,11 +24,9 @@ public class UIvertex {
 		return highlighted;
 	}
 
-
 	public Color getColor() {
 		return color;
 	}
-
 
 	public void highlight() {
 		this.color = Color.red;
@@ -38,24 +38,20 @@ public class UIvertex {
 		highlighted = false;
 	}
 
-
 	public UIvertex(Vertex<Location> v) {
 		this.x = v.getX();
 		this.y = v.getY();
 		vertex = v;
 		id = vertex.getId();
 	}
-	
 
 	public boolean isDragging() {
 		return dragging;
 	}
 
-
 	public void setDragging(boolean dragging) {
 		this.dragging = dragging;
 	}
-
 
 	public void setPos(int x, int y) {
 		this.x = x;

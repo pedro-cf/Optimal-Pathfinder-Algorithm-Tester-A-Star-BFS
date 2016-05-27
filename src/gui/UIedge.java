@@ -10,9 +10,24 @@ public class UIedge {
 	private UIvertex v1, v2;
 	private Edge<Location> edge;
 	private boolean highlighted = false;
+	private int offset = 0;
+
+	public void incOffset(int inc) {
+		offset += inc;
+	}
 	
+	public int getOffset() {
+		return this.offset;
+	}
+	
+
 	public Color getColor() {
-		return edge.getType();
+		if (edge.getType() == 0) return Color.green;
+		if (edge.getType() == 1) return Color.blue;
+		if (edge.getType() == 2) return Color.yellow;
+		if (edge.getType() == 3) return Color.magenta;
+		
+		return Color.black;
 	}
 	
 	public boolean isHighlighted() {
@@ -32,7 +47,7 @@ public class UIedge {
 		this.v2 = v2;
 		this.edge = edge;
 	}
-
+	
 	public UIvertex getV1() {
 		return v1;
 	}
@@ -44,9 +59,10 @@ public class UIedge {
 	public Edge<?> getEdge() {
 		return edge;
 	}
-
-
 	
-	
+	public boolean isHorizontal() {
+		if (v1.getY() == v2.getY()) return true;
+		return false;
+	}
 	
 }

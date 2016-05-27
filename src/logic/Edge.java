@@ -7,9 +7,9 @@ public class Edge<T> {
 	private int id;
 	private Vertex<T> v1, v2;
 	private int weight;
-	private Color type;
+	private int type;
 
-	public Edge(Vertex<T> v1, Vertex<T> v2, int weight, int id, Color type) {
+	public Edge(Vertex<T> v1, Vertex<T> v2, int weight, int id, int type) {
 		this.v1 = v1;
 		this.v2 = v2;
 		this.weight = weight;
@@ -22,11 +22,11 @@ public class Edge<T> {
 		v2.addNeighbor(v1);
 	}
 	
-	public Color getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(Color type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

@@ -28,7 +28,7 @@ import java.awt.Color;
 
 public class Gui {
 	
-	public final static int scrw = 1080;
+	public final static int scrw = 1220;
 	public final static int scrh = 670;
 	
 
@@ -80,6 +80,25 @@ public class Gui {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JLabel lblBlue = new JLabel("Bus");
+		lblBlue.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblBlue.setBounds(1100, 90, 1200, 150);
+		frame.getContentPane().add(lblBlue);
+		JLabel lblsub = new JLabel("Subway");
+		lblsub.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblsub.setBounds(1100, 110, 1200, 210);
+		frame.getContentPane().add(lblsub);
+		JLabel lbltaxi = new JLabel("Taxi");
+		lbltaxi.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lbltaxi.setBounds(1100, 130, 1200, 270);
+		frame.getContentPane().add(lbltaxi);
+		JLabel lbltrain = new JLabel("Train");
+		lbltrain.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lbltrain.setBounds(1100, 150, 1200, 330);
+		frame.getContentPane().add(lbltrain);
+		
+		
+		
 		highlightButton = new JButton("Highlight Path");
 		highlightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,7 +116,7 @@ public class Gui {
 		
 		
 		graphPanel = new GraphPanel();
-		graphPanel.setBounds(10, 78, scrw-210, scrh-64);
+		graphPanel.setBounds(10, 78, scrw-60, scrh-64);
 		frame.getContentPane().add(graphPanel);
 		
 		graphPanel.setFocusTraversalKeysEnabled(false);
@@ -122,7 +141,7 @@ public class Gui {
 		minimizeCBox = new JComboBox();
 		minimizeCBox.setBounds(384, 14, 146, 30);
 		minimizeCBox.setFocusable(false);
-		minimizeCBox.addItem("  Time/Cost");
+		minimizeCBox.addItem("  Distance");
 		minimizeCBox.addItem("  Transport Changes");
 		frame.getContentPane().add(minimizeCBox);
 		
@@ -170,21 +189,20 @@ public class Gui {
 		int i;
 		int k;
 				
-		for (i=0; i < 40; i++)
+		for (i=0; i < 84; i++)
 			graph.addVertex(new Location("V" + i));
 		
 		//for (int k=0; k < 32; k++)
 		//	graph.addEdge( k, k+1, random(1,20));
 				
-		for (i=0; i < 5; i++)
-			for (k=0; k < 8; k++) {
-				int n = i*8 + k;
-				if (i != 4)
-					graph.addEdge( n, n+8, random(5,30), Color.cyan);
-				if (k != 7)
-					graph.addEdge( n, n+1, random(5,30), Color.orange);
-			}
-		
+		for (i=0; i < 6; i++)
+			for (k=0; k < 14; k++) {
+				int n = i*14 + k;
+				if (i != 5)
+					graph.addEdge( n, n+14, random(5,30), random(0,3));
+				if (k != 13)
+					graph.addEdge( n, n+1, random(5,30), random(0,3));
+			} 
 	}
 	
 	public static int getAlgorithm() {

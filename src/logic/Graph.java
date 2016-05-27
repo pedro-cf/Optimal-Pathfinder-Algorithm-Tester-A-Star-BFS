@@ -54,7 +54,7 @@ public class Graph<T> {
 		vertexes.add(v);
 	}
 	
-	public boolean addEdge(Vertex<T> v1, Vertex<T> v2, int weight, Color type) {
+	public boolean addEdge(Vertex<T> v1, Vertex<T> v2, int weight, int type) {
 		Edge<T> edge = new Edge<T>(v1, v2, weight, edgeCount++, type);
 		if (!edges.contains(edge)) {
 			edges.add(edge);
@@ -64,15 +64,15 @@ public class Graph<T> {
 		return false;
 	}
 
-	public boolean addEdge(int id1, int id2, int weight, Color type) {
+	public boolean addEdge(int id1, int id2, int weight, int type) {
 		Edge<T> edge = new Edge<T>(vertexes.get(id1), vertexes.get(id2), weight, edgeCount++, type);
 		
 		if (!edges.contains(edge)) {
 			edges.add(edge);
 			return true;
-		}
+			}
 
-		return false;
+			return false;
 	}
 
 	public List<Vertex<T>> getVertexes() {
