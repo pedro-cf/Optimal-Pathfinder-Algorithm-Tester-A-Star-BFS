@@ -176,8 +176,9 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		}
 
 		g2.setStroke(new BasicStroke(1.0f));
-		g2.setFont(f2);
+		
 		for (UIvertex v : ui_vertexes) {
+			g2.setFont(f2);
 			g2.setColor(v.getColor());
 			int x = v.getX();
 			int y = v.getY();
@@ -193,8 +194,9 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 				g2.drawString("G", x
 						+ vertex_offset_x, y + vertex_offset_y+5);
 			
-			//g2.drawString(v.getVertex().getValue().getName(), x
-			//		+ vertex_offset_x, y + vertex_offset_y);
+			g2.setFont(f);
+			g2.drawString(v.getVertex().getValue().getName(), x
+					+ vertex_offset_x, y + vertex_offset_y);
 		}
 
 	}

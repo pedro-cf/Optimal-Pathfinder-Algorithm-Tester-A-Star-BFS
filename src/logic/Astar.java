@@ -47,6 +47,14 @@ public class Astar {
 			List<Vertex<Location>> neighbors = current.vertex.getNeighbors();
 			for (Vertex<Location> cur_neighbor : neighbors) {
 				double gCost = current.gCost + current.vertex.getEdge(cur_neighbor).getWeight();
+				if (gui.Gui.getMinimize() == 1) {
+					int penalty = 0;
+					if (current.parent != null && current.vertex.getEdge(current.parent.vertex).getType() != current.vertex.getEdge(cur_neighbor).getType()) {
+						penalty += 9999;
+						System.out.println("WOOOOO");
+					}
+					gCost += penalty; 
+				}
 				double hCost = h(cur_neighbor, goal);
 				Node node = new Node(cur_neighbor, current, gCost, hCost);
 				if (verInList(closedList, cur_neighbor) && gCost >= current.gCost){

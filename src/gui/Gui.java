@@ -163,18 +163,11 @@ public class Gui {
 		graph.reset();
 		graph = new Graph<Location>();
 		
-		//start = graph.addVertex(new Location("V1"));
-		//goal = 	graph.addVertex(new Location("V4"));
-		
-
 		int i;
 		int k;
 				
 		for (i=0; i < 84; i++)
 			graph.addVertex(new Location("V" + i));
-		
-		//for (int k=0; k < 32; k++)
-		//	graph.addEdge( k, k+1, random(1,20));
 				
 		for (i=0; i < 6; i++)
 			for (k=0; k < 14; k++) {
