@@ -113,11 +113,16 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		
 		
 		g3.setStroke(new BasicStroke(4.0f));
-		g2.setColor(Color.black);
+		g3.setColor(Color.black);
+		g3.setFont(f2);
 		g3.drawLine(1090, 100, 1200, 100);
+		g2.drawString("Bus", 1090, 95);
 		g3.drawLine(1090, 150, 1200, 150);
+		g2.drawString("Subway", 1090, 145);
 		g3.drawLine(1090, 200, 1200, 200);
+		g2.drawString("Taxi", 1090, 195);
 		g3.drawLine(1090, 250, 1200, 250);
+		g2.drawString("Train", 1090, 245);
 		
 		
 		g3.setStroke(new BasicStroke(3.0f));

@@ -80,25 +80,6 @@ public class Gui {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblBlue = new JLabel("Bus");
-		lblBlue.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblBlue.setBounds(1100, 90, 1200, 150);
-		frame.getContentPane().add(lblBlue);
-		JLabel lblsub = new JLabel("Subway");
-		lblsub.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblsub.setBounds(1100, 110, 1200, 210);
-		frame.getContentPane().add(lblsub);
-		JLabel lbltaxi = new JLabel("Taxi");
-		lbltaxi.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lbltaxi.setBounds(1100, 130, 1200, 270);
-		frame.getContentPane().add(lbltaxi);
-		JLabel lbltrain = new JLabel("Train");
-		lbltrain.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lbltrain.setBounds(1100, 150, 1200, 330);
-		frame.getContentPane().add(lbltrain);
-		
-		
-		
 		highlightButton = new JButton("Highlight Path");
 		highlightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
