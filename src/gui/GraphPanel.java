@@ -194,10 +194,11 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 				g2.drawString("G", x
 						+ vertex_offset_x, y + vertex_offset_y+5);
 			
-			
-			g2.setFont(f);
-			g2.drawString(v.getVertex().getValue().getName(), x
-					+ vertex_offset_x, y + vertex_offset_y);
+			if (chckbxNewCheckBox.isSelected()) {
+				g2.setFont(f);
+				g2.drawString(v.getVertex().getValue().getName(), x
+						+ vertex_offset_x -3, y + vertex_offset_y +4);
+			}
 			
 		}
 

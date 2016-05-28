@@ -36,6 +36,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.JCheckBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 public class Gui {
 	
 	public final static int scrw = 1220;
@@ -47,6 +51,7 @@ public class Gui {
 	private static JButton highlightButton;
 	private static JComboBox algorithmCBox;
 	private static JComboBox minimizeCBox;
+	protected static JCheckBox chckbxNewCheckBox;
 	
 	private static Vertex<Location> start;
 	private static Vertex<Location> goal;
@@ -149,7 +154,7 @@ public class Gui {
 		label.setToolTipText("Left click a node to set it as the start node. \r\nRight click a node to set it as the goal node.");
 		label.setBackground(new Color(255, 0, 0));
 		label.setFont(new Font("Tahoma", Font.BOLD, 30));
-		label.setBounds(983, 7, 38, 35);
+		label.setBounds(1082, 7, 38, 35);
 		frame.getContentPane().add(label);
 		
 		JButton btnR = new JButton("R");
@@ -190,6 +195,16 @@ public class Gui {
 		btnLoad.setFocusable(false);
 		btnLoad.setBounds(892, 14, 81, 30);
 		frame.getContentPane().add(btnLoad);
+		
+		chckbxNewCheckBox = new JCheckBox("Vertex");
+		chckbxNewCheckBox.setBounds(979, 14, 75, 30);
+		chckbxNewCheckBox.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+            	graphPanel.repaint();
+            }
+        });
+		frame.getContentPane().add(chckbxNewCheckBox);
 		graphPanel.requestFocus();
 		
 	}
