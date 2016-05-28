@@ -1,6 +1,7 @@
 package logic;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -10,7 +11,7 @@ import java.util.TreeSet;
 /**
  * @author Pedro
  */
-public class Graph<T> {
+public class Graph<T> implements Serializable {
 	
 	private List<Vertex<T>> vertexes = new ArrayList<Vertex<T>>();
 	private List<Edge<T>> edges = new ArrayList<Edge<T>>();

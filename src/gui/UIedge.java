@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import logic.Edge;
 import logic.Location;
+import static logic.Astar.*;
 
 public class UIedge {
 	
@@ -22,10 +23,10 @@ public class UIedge {
 	
 
 	public Color getColor() {
-		if (edge.getType() == 0) return Color.green;
-		if (edge.getType() == 1) return Color.blue;
-		if (edge.getType() == 2) return Color.yellow;
-		if (edge.getType() == 3) return Color.magenta;
+		if (edge.getType() == logic.Astar.SUBWAY) return Color.green;
+		if (edge.getType() == logic.Astar.BUS) return Color.blue;
+		if (edge.getType() == logic.Astar.TAXI) return Color.yellow;
+		if (edge.getType() == logic.Astar.TRAIN) return Color.magenta;
 		
 		return Color.black;
 	}

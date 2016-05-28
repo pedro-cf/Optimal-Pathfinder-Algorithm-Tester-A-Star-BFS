@@ -1,8 +1,9 @@
 package logic;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Edge<T> {
+public class Edge<T> implements Serializable {
 	
 	private int id;
 	private Vertex<T> v1, v2;

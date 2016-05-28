@@ -1,9 +1,10 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex<T> implements Comparable<Vertex<T>>{
+public class Vertex<T> implements Comparable<Vertex<T>>, Serializable{
 	
 	private int id;
 	private T obj;

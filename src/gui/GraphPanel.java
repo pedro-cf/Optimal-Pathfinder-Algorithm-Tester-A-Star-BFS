@@ -116,9 +116,9 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		g3.setColor(Color.black);
 		g3.setFont(f2);
 		g3.drawLine(1090, 100, 1200, 100);
-		g2.drawString("Bus", 1090, 95);
+		g2.drawString("Subway", 1090, 95);
 		g3.drawLine(1090, 150, 1200, 150);
-		g2.drawString("Subway", 1090, 145);
+		g2.drawString("Bus", 1090, 145);
 		g3.drawLine(1090, 200, 1200, 200);
 		g2.drawString("Taxi", 1090, 195);
 		g3.drawLine(1090, 250, 1200, 250);
@@ -126,10 +126,10 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		
 		
 		g3.setStroke(new BasicStroke(3.0f));
-		g3.setColor(Color.blue);
+		g3.setColor(Color.green);
 		g3.drawLine(1090, 100, 1200, 100);
 		
-		g3.setColor(Color.green);
+		g3.setColor(Color.blue);
 		g3.drawLine(1090, 150, 1200, 150);
 		
 		g3.setColor(Color.yellow);
@@ -194,9 +194,11 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 				g2.drawString("G", x
 						+ vertex_offset_x, y + vertex_offset_y+5);
 			
+			
 			g2.setFont(f);
 			g2.drawString(v.getVertex().getValue().getName(), x
 					+ vertex_offset_x, y + vertex_offset_y);
+			
 		}
 
 	}

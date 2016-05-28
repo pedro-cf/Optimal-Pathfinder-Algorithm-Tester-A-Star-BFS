@@ -4,10 +4,12 @@ import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import logic.DepthFirst;
 import logic.Graph;
 import logic.Location;
 import logic.Node;
@@ -24,7 +26,15 @@ import javax.swing.JSeparator;
 
 import logic.Astar;
 import static gui.GraphPanel.*;
+
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Gui {
 	
@@ -112,6 +122,7 @@ public class Gui {
 		algorithmCBox.setBounds(114, 14, 146, 30);
 		algorithmCBox.setFocusable(false);
 		algorithmCBox.addItem("  A*");
+		//algorithmCBox.addItem("  Depth First");
 		frame.getContentPane().add(algorithmCBox);
 		
 		JLabel lblMinimize = new JLabel("Minimize:");
@@ -124,6 +135,10 @@ public class Gui {
 		minimizeCBox.setFocusable(false);
 		minimizeCBox.addItem("  Distance");
 		minimizeCBox.addItem("  Transport Changes");
+		minimizeCBox.addItem("  Use of Subway");
+		minimizeCBox.addItem("  Use of Bus");
+		minimizeCBox.addItem("  Use of Taxi");
+		minimizeCBox.addItem("  Use of Train");
 		frame.getContentPane().add(minimizeCBox);
 		
 		JSeparator separator = new JSeparator();
@@ -134,7 +149,7 @@ public class Gui {
 		label.setToolTipText("Left click a node to set it as the start node. \r\nRight click a node to set it as the goal node.");
 		label.setBackground(new Color(255, 0, 0));
 		label.setFont(new Font("Tahoma", Font.BOLD, 30));
-		label.setBounds(816, 9, 38, 35);
+		label.setBounds(983, 7, 38, 35);
 		frame.getContentPane().add(label);
 		
 		JButton btnR = new JButton("R");
@@ -151,6 +166,30 @@ public class Gui {
 		btnR.setFocusable(false);
 		btnR.setBounds(735, 14, 56, 30);
 		frame.getContentPane().add(btnR);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveGraph();
+			}
+		});
+		btnSave.setToolTipText("Remake Graph");
+		btnSave.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnSave.setFocusable(false);
+		btnSave.setBounds(801, 14, 81, 30);
+		frame.getContentPane().add(btnSave);
+		
+		JButton btnLoad = new JButton("Load");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				loadGraph();
+			}
+		});
+		btnLoad.setToolTipText("Remake Graph");
+		btnLoad.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnLoad.setFocusable(false);
+		btnLoad.setBounds(892, 14, 81, 30);
+		frame.getContentPane().add(btnLoad);
 		graphPanel.requestFocus();
 		
 	}
@@ -198,9 +237,108 @@ public class Gui {
 			System.out.println();
 			
 			graphPanel.highlightPath(path);
+		} else if (getAlgorithm() == 1) {
+			/*
+			DepthFirst.getPath(graph.getVertex(startNodeID), graph.getVertex(goalNodeID));
+			
+			
+			path = DepthFirst.getPath(graph.getVertex(startNodeID), graph.getVertex(goalNodeID));
+			
+			System.out.println();
+			for (Node n : path)
+				System.out.print( " -> " + n.vertex.getValue().getName());
+			System.out.println();
+			*/
 		}
 		
 		if (path == null)
 			JOptionPane.showMessageDialog(null, "Error.");
+	}
+	
+	private static void saveGraph() {
+		
+		
+		File dir = new File("graphs");
+		if (!dir.isDirectory()) dir.mkdir();
+		
+		String filename = "graph";
+		int i=0;
+		while(new File(dir.getAbsolutePath() + "\\" + filename + i + ".dat").exists()) {
+			i++;
+		}
+		filename = filename + i + ".dat";
+		
+		ObjectOutputStream os = null;
+		try {
+			os = new ObjectOutputStream(new FileOutputStream("graphs/" + filename));
+			os.writeObject(graph);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}  
+		finally { if (os != null)
+			try {
+				os.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} }
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static void loadGraph() {
+		
+		File dir = new File("graphs");
+		if (!dir.isDirectory()) {
+			JOptionPane.showMessageDialog(frame, "You have no saved graphs.", "Load Graph", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle("Choose a file");
+		chooser.setApproveButtonText("Load");
+		chooser.setApproveButtonToolTipText("Load selected file");
+		chooser.setCurrentDirectory(dir);
+		chooser.setFileSelectionMode(0);
+		chooser.setAcceptAllFileFilterUsed(false);
+		chooser.addChoosableFileFilter(new ExtensionFileFilter("DAT (*.dat)", new String[] { "dat" }));
+		
+		int check = chooser.showOpenDialog(null);
+		if (check == JFileChooser.APPROVE_OPTION) {
+			String filepath = chooser.getSelectedFile().getAbsolutePath();
+			String fileExtension = filepath.substring(filepath.lastIndexOf('.'));
+			if (!fileExtension.equals(".dat")) {
+				JOptionPane.showMessageDialog(frame, "Invalid file type.");
+				return;
+			}
+			ObjectInputStream is = null;
+			try {
+				is = new ObjectInputStream(new FileInputStream(filepath));
+				
+				graph = null;
+				graph = (Graph<Location>) is.readObject();
+				graphPanel.initialize();
+				graphPanel.repaint();
+				
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			finally {
+				if (is != null)
+					try {
+						is.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+			}
+		}
+		
 	}
 }

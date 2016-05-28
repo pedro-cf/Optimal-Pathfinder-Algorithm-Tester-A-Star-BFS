@@ -6,7 +6,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+
+
 public class Astar {
+	
+	public static int SUBWAY = 0;
+	public static int BUS = 1;
+	public static int TAXI = 2;
+	public static int TRAIN = 3;
 	
 	private static Comparator<Node> nodeSorter = new Comparator<Node>() {
 		public int compare(Node n0, Node n1) {
@@ -19,7 +26,7 @@ public class Astar {
 	public static List<Node> getPath(Vertex<Location> start, Vertex<Location> goal) {
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
-		Node current = new Node(start, null, 0, h(start, goal));
+		Node current = new Node(start, null, 0, heuristic(start, goal));
 		openList.add(current);
 		
 		while (openList.size() > 0) {
@@ -48,14 +55,12 @@ public class Astar {
 			for (Vertex<Location> cur_neighbor : neighbors) {
 				double gCost = current.gCost + current.vertex.getEdge(cur_neighbor).getWeight();
 				if (gui.Gui.getMinimize() == 1) {
-					int penalty = 0;
 					if (current.parent != null && current.vertex.getEdge(current.parent.vertex).getType() != current.vertex.getEdge(cur_neighbor).getType()) {
-						penalty += 9999;
-						System.out.println("WOOOOO");
+						gCost += 9999;
 					}
-					gCost += penalty; 
-				}
-				double hCost = h(cur_neighbor, goal);
+				} else if (gui.Gui.getMinimize() == 2 && current.vertex.getEdge(cur_neighbor).getType() == gui.Gui.getMinimize() - 2) gCost += 9999;
+				
+				double hCost = heuristic(cur_neighbor, goal);
 				Node node = new Node(cur_neighbor, current, gCost, hCost);
 				if (verInList(closedList, cur_neighbor) && gCost >= current.gCost){
 					System.out.println("\t" + cur_neighbor.getValue().getName() + ": g="+gCost+ " h="+hCost);
@@ -80,10 +85,10 @@ public class Astar {
 		return false;
 	}
 	
-	private static int h(Vertex<Location> cur, Vertex<Location> goal) {
+	private static int heuristic(Vertex<Location> cur, Vertex<Location> goal) {
 		if (gui.Gui.getAlgorithm() == 0 && gui.Gui.getMinimize() == 0)
 			return (int)cur.distance(goal) / 15;
-		return 0;
+		return 1;
 	}
 
 }
