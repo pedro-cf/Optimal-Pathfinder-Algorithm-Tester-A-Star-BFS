@@ -211,6 +211,7 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 		for (UIedge uie : ui_edges)
 			uie.unhighlight();
 		
+		int sum = 0;
 		for (UIvertex uiv : ui_vertexes) {
 			
 			for (int i=0; i < path.size(); i++) {
@@ -220,14 +221,44 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 						for (UIedge uie : ui_edges) {
 							if (uie.getEdge().containsLoc(path.get(i).vertex) && uie.getEdge().containsLoc(path.get(i+1).vertex)) {
 								uie.highlight();
+								sum += uie.getEdge().getWeight();
 							}
 						}
 					}
 				}
 			}
 		}
+		System.out.println("Total Weight: " + sum);
 		repaint();
 	}
+	
+	public void highlightPath2(List<Vertex<Location>> path) {
+		for (UIvertex uiv : ui_vertexes)
+			uiv.unhighlight();
+		for (UIedge uie : ui_edges)
+			uie.unhighlight();
+		
+		int sum = 0;
+		for (UIvertex uiv : ui_vertexes) {
+			
+			for (int i=0; i < path.size(); i++) {
+				if (uiv.getVertex().equals(path.get(i))) {
+					uiv.highlight();
+					if (i<path.size()-1) {
+						for (UIedge uie : ui_edges) {
+							if (uie.getEdge().containsLoc(path.get(i)) && uie.getEdge().containsLoc(path.get(i+1))) {
+								uie.highlight();
+								sum += uie.getEdge().getWeight();
+							}
+						}
+					}
+				}
+			}
+		}
+		System.out.println("Total Weight: " + sum);
+		repaint();
+	}
+	
 
 
 	@Override
@@ -300,5 +331,7 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 
 	@Override
 	public void mouseMoved(MouseEvent e) {}
+
+
 	
 }

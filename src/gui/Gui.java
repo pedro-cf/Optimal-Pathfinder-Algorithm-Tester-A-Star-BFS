@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -9,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import logic.BreadthFirst;
 import logic.DepthFirst;
 import logic.Graph;
 import logic.Location;
@@ -118,17 +120,7 @@ public class Gui {
 		graphPanel.setFocusTraversalKeysEnabled(false);
 		graphPanel.setFocusable(true);
 		
-		JLabel lblAlgorithm = new JLabel("Algorithm:");
-		lblAlgorithm.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblAlgorithm.setBounds(10, 9, 94, 35);
-		frame.getContentPane().add(lblAlgorithm);
-		
-		algorithmCBox = new JComboBox();
-		algorithmCBox.setBounds(114, 14, 146, 30);
-		algorithmCBox.setFocusable(false);
-		algorithmCBox.addItem("  A*");
-		//algorithmCBox.addItem("  Depth First");
-		frame.getContentPane().add(algorithmCBox);
+
 		
 		JLabel lblMinimize = new JLabel("Minimize:");
 		lblMinimize.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -145,6 +137,32 @@ public class Gui {
 		minimizeCBox.addItem("  Use of Taxi");
 		minimizeCBox.addItem("  Use of Train");
 		frame.getContentPane().add(minimizeCBox);
+		
+		JLabel lblAlgorithm = new JLabel("Algorithm:");
+		lblAlgorithm.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblAlgorithm.setBounds(10, 9, 94, 35);
+		frame.getContentPane().add(lblAlgorithm);
+		
+		algorithmCBox = new JComboBox();
+		algorithmCBox.setBounds(114, 14, 146, 30);
+		algorithmCBox.setFocusable(false);
+		algorithmCBox.addItem("  A*");
+		algorithmCBox.addItem("  Breadth First Search");
+		algorithmCBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		        if (getAlgorithm() != 0) {
+		        	minimizeCBox.setVisible(false);
+		        	lblMinimize.setVisible(false);
+		        } else {
+		        	minimizeCBox.setVisible(true);
+		        	lblMinimize.setVisible(true);
+		        }
+		        	
+		    }
+		});
+		frame.getContentPane().add(algorithmCBox);
+		
+		
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 66, 1044, 9);
@@ -242,8 +260,9 @@ public class Gui {
 	}
 	
 	private static void highlightPath() {
-		List<Node> path = null;
+		
 		if (getAlgorithm() == 0) {
+			List<Node> path = null;
 			path = Astar.getPath(graph.getVertex(startNodeID), graph.getVertex(goalNodeID));
 		
 			System.out.println();
@@ -252,22 +271,26 @@ public class Gui {
 			System.out.println();
 			
 			graphPanel.highlightPath(path);
+			
+			if (path == null)
+				JOptionPane.showMessageDialog(null, "Error.");
+			
 		} else if (getAlgorithm() == 1) {
-			/*
-			DepthFirst.getPath(graph.getVertex(startNodeID), graph.getVertex(goalNodeID));
-			
-			
-			path = DepthFirst.getPath(graph.getVertex(startNodeID), graph.getVertex(goalNodeID));
+			List<Vertex<Location>> path = null;
+			path = BreadthFirst.bfs(graph.getVertex(startNodeID), graph.getVertex(goalNodeID));
 			
 			System.out.println();
-			for (Node n : path)
-				System.out.print( " -> " + n.vertex.getValue().getName());
+			for (Vertex<Location> v : path)
+				System.out.print( " -> " + v.getId());
 			System.out.println();
-			*/
+
+			graphPanel.highlightPath2(path);
+			
+			if (path == null)
+				JOptionPane.showMessageDialog(null, "Error.");
 		}
 		
-		if (path == null)
-			JOptionPane.showMessageDialog(null, "Error.");
+		
 	}
 	
 	private static void saveGraph() {

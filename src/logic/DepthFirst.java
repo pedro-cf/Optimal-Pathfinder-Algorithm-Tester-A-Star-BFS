@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.Stack;
 import java.util.Vector;
 
 public class DepthFirst {
-	public static List<Node> getPath(Vertex<Location> start, Vertex<Location> goal) {
+	public static List<Vertex<Location>> dfs(Vertex<Location> start, Vertex<Location> goal) {
 		
-		List<Node> path = new ArrayList<Node>();
+		List<Vertex<Location>> path = new ArrayList<Vertex<Location>>();
 		
 		Vector<Integer> visited = new Vector<Integer>();
 		Stack<Vertex<Location>> stack = new Stack();
@@ -36,4 +37,5 @@ public class DepthFirst {
 		
 		return null;
 	}
+
 }
