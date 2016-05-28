@@ -58,7 +58,8 @@ public class Astar {
 					if (current.parent != null && current.vertex.getEdge(current.parent.vertex).getType() != current.vertex.getEdge(cur_neighbor).getType()) {
 						gCost += 9999;
 					}
-				} else if (gui.Gui.getMinimize() == 2 && current.vertex.getEdge(cur_neighbor).getType() == gui.Gui.getMinimize() - 2) gCost += 9999;
+				} else if (gui.Gui.getMinimize() > 1 && gui.Gui.getMinimize() < 6)
+					if (current.vertex.getEdge(cur_neighbor).getType() == gui.Gui.getMinimize() - 2) gCost += 9999;
 				
 				double hCost = heuristic(cur_neighbor, goal);
 				Node node = new Node(cur_neighbor, current, gCost, hCost);
@@ -88,7 +89,7 @@ public class Astar {
 	private static int heuristic(Vertex<Location> cur, Vertex<Location> goal) {
 		if (gui.Gui.getAlgorithm() == 0 && gui.Gui.getMinimize() == 0)
 			return (int)cur.distance(goal) / 15;
-		return 1;
+		return 0;
 	}
 
 }

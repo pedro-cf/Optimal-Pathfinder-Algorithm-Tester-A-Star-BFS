@@ -173,7 +173,7 @@ public class Gui {
 				saveGraph();
 			}
 		});
-		btnSave.setToolTipText("Remake Graph");
+		btnSave.setToolTipText("Save Graph");
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSave.setFocusable(false);
 		btnSave.setBounds(801, 14, 81, 30);
@@ -185,7 +185,7 @@ public class Gui {
 				loadGraph();
 			}
 		});
-		btnLoad.setToolTipText("Remake Graph");
+		btnLoad.setToolTipText("Load Graph");
 		btnLoad.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLoad.setFocusable(false);
 		btnLoad.setBounds(892, 14, 81, 30);
@@ -317,7 +317,6 @@ public class Gui {
 			try {
 				is = new ObjectInputStream(new FileInputStream(filepath));
 				
-				graph = null;
 				graph = (Graph<Location>) is.readObject();
 				graphPanel.initialize();
 				graphPanel.repaint();
