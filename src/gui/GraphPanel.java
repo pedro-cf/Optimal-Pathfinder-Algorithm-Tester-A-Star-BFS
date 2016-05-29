@@ -43,6 +43,8 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 
 	private Vector<UIvertex> ui_vertexes = new Vector<UIvertex>();
 	private Vector<UIedge> ui_edges = new Vector<UIedge>();
+	
+	private String totalWeight = "Total Weight: ";
 
 	public GraphPanel() {
 		addMouseListener(this);
@@ -63,6 +65,7 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 	}
 
 	public void initialize() {
+		totalWeight = "Total Weight: ";
 		startNodeID = -1;
 		goalNodeID = -1;
 		ui_vertexes.clear();
@@ -201,7 +204,8 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 			}
 			
 		}
-
+		
+		g2.drawString(totalWeight, 400, 500);
 	}
 
 	
@@ -228,7 +232,7 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 				}
 			}
 		}
-		System.out.println("Total Weight: " + sum);
+		totalWeight = "Total Weight: " + sum;
 		repaint();
 	}
 	
@@ -255,7 +259,7 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
 				}
 			}
 		}
-		System.out.println("Total Weight: " + sum);
+		totalWeight = sum+"";
 		repaint();
 	}
 	
