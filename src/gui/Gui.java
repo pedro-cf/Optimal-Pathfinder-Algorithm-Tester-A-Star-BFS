@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import logic.BreadthFirst;
-import logic.DepthFirst;
 import logic.Graph;
 import logic.Location;
 import logic.Node;
